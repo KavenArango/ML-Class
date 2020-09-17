@@ -9,30 +9,33 @@ def data_range(x):
     return max(x) - min(x)
 
 
-
 def mean(x):
     return round((sum(x) / len(x)), 2)
-
 
 
 def diff_from_mean(x):
     x_bar = mean(x)
     return [round((x_i - x_bar), 2) for x_i in x]
 
+
 def sum_of_squares(x):
     return(sum(x_i**2 for x_i in x))
+
 
 def variance(x):
     l = len(x)
     deviations = diff_from_mean(x)
     return (sum_of_squares(deviations)/(l - 1))
 
+
 def standard_deviation(x):
     v = variance(x)
     return math.sqrt(v)
 
+
 def dot(v, w):
     return sum(v_i * w_i for v_i, w_i in zip(v, w))
+
 
 def covariance(x, y):
     n = len(x) # length of both x and y are required to be the same
@@ -46,10 +49,11 @@ def correlation(x, y):
         return covariance(x,y)/(sdev_x * sdev_y)
     else:
         return 0
-    
+
 
 def get_y_pred(x, slope, intercept):
     return (x * slope + intercept)
+
 
 def get_residuals(list1, list2):
     residuals = []
@@ -58,6 +62,7 @@ def get_residuals(list1, list2):
         residuals.append(round((list1[i] - list2[i]), 2))
         i+= 1
     return residuals
+
 
 def get_ssr(list1, list2):
     res = get_residuals(list1, list2)
@@ -68,6 +73,7 @@ def get_ssr(list1, list2):
         i+= 1
     return ssr
 
+
 def get_sum_residuals(list1, list2):
     res = get_residuals(list1, list2)
     sum_res = 0
@@ -76,6 +82,7 @@ def get_sum_residuals(list1, list2):
         sum_res += res[i]
         i+= 1
     return round(sum_res, 1)
+
 
 def do_all_regression_stuff(x, y):
     mean_exploratory = mean(x)
@@ -103,6 +110,7 @@ def do_all_regression_stuff(x, y):
     plt.plot(x, response_value_list, color = "g")
     plt.xlabel('Exploratory (independent) variable values') 
     plt.ylabel('Response (dependent) variable values ')
+    plt.show()
     
     errors = get_residuals(y,response_value_list)
     print('Errors or Residuals of Predicted Response value and Actual Exploratory value =', errors)
