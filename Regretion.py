@@ -149,8 +149,10 @@ def do_all_regression_stuff(x, y):
 NewCases = pd.read_csv("sevenday_rolling_average_of_new_cases.csv").head(100) # converts .csv to dataframe
 NewDeaths = pd.read_csv("sevenday_rolling_average_of_new_deaths.csv").head(100) # converts .csv to dataframe
 
+# ca fl ga il mi tx
 
-do_all_regression_stuff(NewCases['FL'], NewDeaths['FL'])
+
+do_all_regression_stuff(NewCases['GA'], NewDeaths['GA'])
 
 print(NewCases)
 

@@ -44,7 +44,7 @@ def variance(x):
     return (sum_of_squares(deviations)/(l - 1))
 
 def testStatistic(X_bar, X_bar2, std_dev, sampleSize):
-    return((X_bar - X_bar2) / ((std_dev) / (math.sqrt(sampleSize))))
+    return((X_bar2 - X_bar) / ((std_dev) / (math.sqrt(sampleSize))))
 
 def getLeftPValueAndZScore(X_bar,X_bar2,std_dev, sampleSize, critValue):
     
@@ -61,6 +61,7 @@ def getRightPValueAndZScore(X_bar,X_bar2,std_dev, sampleSize, critValue):
 
 #my_connection = mysql.connector.connect(user='root', password='root', host= 'localhost',database='mytestdb',auth_plugin='caching_sha2_password')  
 
+
 def init():
     
     x_bar = int(input("Please input the mean of the sample: "))#Mean
@@ -69,12 +70,23 @@ def init():
     critValue = float(input("Please input the level of significance: "))
     sampleSize = int(input("Please input sample size: "))
     
-    pValueAndZScoreResult = getRightPValueAndZScore(x_bar2, x_bar, std_dev, sampleSize, critValue)
     
-    print("P value: ", pValueAndZScoreResult[0], "\nZ score: ", pValueAndZScoreResult[1], '\n')
+    RightPValueAndZScoreResult = getRightPValueAndZScore(x_bar2, x_bar, std_dev, sampleSize, critValue)
+    LeftPValueAndZScoreResult = getLeftPValueAndZScore(x_bar2, x_bar, std_dev, sampleSize, critValue)
     
+    testScore = testStatistic(x_bar,x_bar2,std_dev,sampleSize)
+    testscore = stats.norm.ppf(testScore)
+    
+    print("test score: ", testscore)
+    
+    print("\nLeft Tail:\nP value: ", LeftPValueAndZScoreResult[0], "\nZ score: ", LeftPValueAndZScoreResult[1])
+    print("\nRight Tail:\nP value: ", RightPValueAndZScoreResult[0], "\nZ score: ", RightPValueAndZScoreResult[1], '\n')
+
 
 if __name__ == '__main__':
     
+    
+    z_score_1 = stats.norm.cdf(0.2) # for C= 0.9 i.e. p = 0.1
+    print(z_score_1)
     init()
     
