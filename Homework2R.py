@@ -6,6 +6,20 @@ import math
 from math import sqrt
 
 
+import mysql.connector
+
+config = {
+  'user': 'scott',
+  'password': 'password',
+  'host': '127.0.0.1',
+  'database': 'employees',
+  'raise_on_warnings': True
+}
+
+cnx = mysql.connector.connect(**config)
+
+
+
 def LeftPValue(zScore):
     return(stats.norm.cdf(zScore))
 
@@ -41,6 +55,10 @@ def RightPValueAndZScore(oldMean,newMean,stdDev, sampleSize, critValue):
     return (results)
 
 
+
+
+
+
 def init():
     oldMean = int(input("Please input the mean of the sample: "))#Mean
     newMean = int(input("Please input the new mean of test sample: "))#Mean
@@ -52,9 +70,6 @@ def init():
     RightPValueAndZScoreResult = RightPValueAndZScore(newMean, oldMean, stdDev, sampleSize, critValue)
     LeftPValueAndZScoreResult = LeftPValueAndZScore(newMean, oldMean, stdDev, sampleSize, critValue)
     
-    testScore = criticalValue(oldMean, newMean, stdDev, sampleSize)
-    
-    print("test score: ", testScore)
     
     
     print("\nLeft Tail:\nP value: ", LeftPValueAndZScoreResult[0], "\nZ score: ", LeftPValueAndZScoreResult[1])
