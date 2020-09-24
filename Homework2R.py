@@ -4,13 +4,10 @@ from scipy.stats import norm
 from decimal import Decimal
 import math
 from math import sqrt
-
-
+import csv
+import pandas as pd
+import numpy as np
 import mysql.connector
-
-cnx = mysql.connector.connect(user='root', password='root',
-                              host='127.0.0.1', database='test',
-                              auth_plugin='mysql_native_password')
 
 
 def LeftPValue(zScore):
@@ -72,4 +69,33 @@ def init():
 if __name__ == '__main__':
     
     init()
+    
+    
+    my_connection = mysql.connector.connect(user='root', password='root',
+                                        host= 'localhost',
+                                        database='test',
+                                        auth_plugin='caching_sha2_password') 
+    mycursor = my_connection.cursor()
+    
+    with open('./CSV/popNames.csv', 'w', newline='') as f_handle:
+        writer = csv.writer(f_handle)
+        # Add the header/column names
+        header = ['id', 'Name', 'Year', 'Gender', 'Count']
+        writer.writerow(header)
+        mycursor.execute('Select * from PoplNames')
+        data = mycursor.fetchall()
+        # Iterate over `data`  and  write to the csv file
+        for row in data:
+            #print(row)
+            writer.writerow(row)
+        f_handle.close()
+    
+    NewCases = pd.read_csv("./CSV/sevenday_rolling_average_of_new_cases.csv").head(100) # converts .csv to dataframe
+    NewDeaths = pd.read_csv("./CSV/sevenday_rolling_average_of_new_deaths.csv").head(100) # converts .csv to dataframe
+    
+    
+    
+    
+    
+    
     

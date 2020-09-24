@@ -47,5 +47,3 @@ def correlation(x, y):
         return 0
     
 
-print('Correlation between x and y = ', correlation(x, y))
-print('===================================================')
