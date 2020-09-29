@@ -68,7 +68,7 @@ def get_ssr(list1, list2):
     ssr = 0
     i = 0
     while i < len(res):
-        ssr = ssr + (res[i])**2
+        ssr = ssr + ((res[i])**2)
         i+= 1
     return ssr
 
@@ -97,20 +97,14 @@ def do_all_regression_stuff(x, y):
     for x_i in x:
         response_value_list.append(round(get_y_pred(x_i, beta_1_hat, beta_0_hat), 2))
     
-    plt.scatter(x, y, color='red', marker='o', s=30)
-    plt.plot(x, response_value_list, color = "g")
-    plt.xlabel('Exploratory (independent) variable values') 
-    plt.ylabel('Response (dependent) variable values ')
-    plt.show()
-    
     errors = get_residuals(y,response_value_list)
     
     response_sum_residuals = get_sum_residuals (y, response_value_list)
     response_value_ssr = round(get_ssr(y, response_value_list), 4)
     
-    
     r_xy = correlation(x, y)
     r_sq = r_xy**2 * 100
+    
     
     newdf = pd.DataFrame({
         'X Mean':[mean_exploratory],
@@ -124,6 +118,26 @@ def do_all_regression_stuff(x, y):
         'Goodness of fit(%)':[round(r_sq,2)]
     })
     
+    resultdict = {
+        'X Mean' : mean_exploratory,
+        'Y Mean' : mean_response,
+        'Beta_1_hat': beta_1_hat,
+        'Beta_0_hat': beta_0_hat,
+        'SumOfResiduals' : response_sum_residuals,
+        'SumSquareResiduals' : response_value_ssr,
+        'R-XY(Correlation)' : round(r_xy, 2),
+        'R-Square-XY' : round(r_sq, 2),
+        'Goodness of fit(%)' : round(r_sq,2),
+        'errors' : errors,
+        'response_value_list' : response_value_list,
+        'cov_xy' : cov_xy,
+        'var_x' : var_x,
+        'r_xy' : r_xy,
+        'r_sq' : r_sq
+        
+    }
+    
+    
     newdf = newdf[['X Mean', 'Y Mean', 'Beta-0(Slope)', 'Beta-1(Intercept)', 'SumOfResiduals', 'SumSquareResiduals', 'R-XY(Correlation)', 'R-Square-XY', 'Goodness of fit(%)']]
     
-    return newdf
+    return resultdict, newdf
