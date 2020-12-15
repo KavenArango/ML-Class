@@ -1,4 +1,4 @@
 {
-    "python.dataScience.jupyterServerURI": "local",
-    "python.pythonPath": "c:\\Users\\Puffy\\OneDrive - SNHU\\Code\\Python\\ML-Class\\venv\\Scripts\\python.exe"
+    "python.pythonPath": "c:\\Users\\Puffy\\OneDrive - SNHU\\Code\\Python\\ML-Class\\venv\\Scripts\\python.exe",
+    "jupyter.jupyterServerType": "local"
 }

@@ -1,0 +1,3 @@
+#!C:\Users\Puffy\OneDrive - SNHU\Code\Python\ML-Class\venv\Scripts\python.exe
+from spark import spark_admin
+spark_admin.main()
